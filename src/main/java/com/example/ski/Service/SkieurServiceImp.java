@@ -1,6 +1,8 @@
 package com.example.ski.Service;
 
+import com.example.ski.Entity.Inscription;
 import com.example.ski.Entity.Skieur;
+import com.example.ski.Repository.InscriptionRepository;
 import com.example.ski.Repository.SkieurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,9 @@ public class SkieurServiceImp implements ISkieurService{
 
     @Autowired
     SkieurRepository skieurRepository;
+
+    @Autowired
+    InscriptionRepository inscriptionRepository;
     @Override
     public List<Skieur> retrieveAllSkieurs() {
         return skieurRepository.findAll();
@@ -37,5 +42,14 @@ public class SkieurServiceImp implements ISkieurService{
     @Override
     public Skieur retrieveSkieur(Long numSkieur) {
         return skieurRepository.getSkieurByNumSkiteur(numSkieur);
+    }
+
+    @Override
+    public Inscription addRegistrationAndAssignToSkier(Inscription inscription, Long numSkier) {
+        Skieur skieur = skieurRepository.getSkieurByNumSkiteur(numSkier);
+
+        inscription.setSkiteurs(skieur);
+
+        return inscriptionRepository.save(inscription);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.ski.Controller;
 
+import com.example.ski.Entity.Inscription;
 import com.example.ski.Entity.Piste;
 import com.example.ski.Entity.Skieur;
 import com.example.ski.Service.ICoursService;
@@ -31,5 +32,10 @@ public class SkieurController {
     @GetMapping("/{d}")
     public Skieur retrievePiste(@PathVariable Long id){
         return iSkieurService.retrieveSkieur(id);
+    }
+
+    @PutMapping("/Inscription/{id}")
+    public Inscription ajouterInscriotion(@PathVariable Long id , @RequestBody Inscription inscription){
+        return iSkieurService.addRegistrationAndAssignToSkier(inscription,id);
     }
 }
