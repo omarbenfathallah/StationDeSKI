@@ -20,4 +20,8 @@ public class Inscription {
     @ManyToOne
     private Skieur skiteurs;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cours_num_cours")
+    private Cours cours;
+
 }

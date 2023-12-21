@@ -1,13 +1,18 @@
 package com.example.ski.Service;
 
+import com.example.ski.Entity.Abonnement;
 import com.example.ski.Entity.Inscription;
+import com.example.ski.Entity.Piste;
 import com.example.ski.Entity.Skieur;
 import com.example.ski.Repository.InscriptionRepository;
+import com.example.ski.Repository.PisteRepository;
 import com.example.ski.Repository.SkieurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class SkieurServiceImp implements ISkieurService{
 
@@ -16,6 +21,9 @@ public class SkieurServiceImp implements ISkieurService{
 
     @Autowired
     InscriptionRepository inscriptionRepository;
+
+    @Autowired
+    PisteRepository pisteRepository;
     @Override
     public List<Skieur> retrieveAllSkieurs() {
         return skieurRepository.findAll();
@@ -23,15 +31,29 @@ public class SkieurServiceImp implements ISkieurService{
 
     @Override
     public Skieur addSkieur(Skieur skieur) {
-        switch(skieur.getAbonnement().getTypeAbon()){
-            case ANNUEL : skieur.getAbonnement().setDateFin(skieur.getAbonnement().getDateDebu().plusYears(1));
-            break;
-            case MENSUEL:skieur.getAbonnement().setDateFin(skieur.getAbonnement().getDateDebu().plusMonths(1));
-            break;
-            case SEMESTRIEL:skieur.getAbonnement().setDateFin(skieur.getAbonnement().getDateDebu().plusMonths(6));
-            break;
+        Abonnement abonnement = skieur.getAbonnement();
+
+        if (abonnement != null) {
+            switch (abonnement.getTypeAbon()) {
+                case ANNUEL:
+                    abonnement.setDateFin(abonnement.getDateDebu().plusYears(1));
+                    break;
+                case MENSUEL:
+                    abonnement.setDateFin(abonnement.getDateDebu().plusMonths(1));
+                    break;
+                case SEMESTRIEL:
+                    abonnement.setDateFin(abonnement.getDateDebu().plusMonths(6));
+                    break;
+            }
         }
-        return  skieurRepository.save(skieur);
+
+        // Set the skieur for the abonnement
+        if (skieur.getAbonnement() != null) {
+            skieur.getAbonnement().setTypeAbon(skieur.getAbonnement().getTypeAbon());
+        }
+
+        // Save both skieur and abonnement
+        return skieurRepository.save(skieur);
     }
 
     @Override
@@ -51,5 +73,16 @@ public class SkieurServiceImp implements ISkieurService{
         inscription.setSkiteurs(skieur);
 
         return inscriptionRepository.save(inscription);
+    }
+
+    @Override
+    public Skieur assignSkierToPiste(Long numSkieur, Long numPiste) {
+        Skieur skieur=skieurRepository.findById(numSkieur).orElse(null);
+        Piste piste =pisteRepository.findById(numPiste).orElse(null);
+
+        skieur.getPistes().add(piste);
+
+
+        return skieurRepository.save(skieur);
     }
 }

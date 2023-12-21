@@ -32,7 +32,6 @@ public class Skieur {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "skiteurs")
     Set<Inscription> inscriptions;
 
-    @JsonIgnore
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     Abonnement abonnement;
 

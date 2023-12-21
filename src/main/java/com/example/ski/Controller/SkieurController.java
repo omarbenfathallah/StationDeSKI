@@ -34,7 +34,7 @@ public class SkieurController {
         return iSkieurService.retrieveSkieur(id);
     }
 
-    @PutMapping("/Inscription/{id}")
+    @PostMapping("/Inscription/{id}")
     public Inscription ajouterInscriotion(@PathVariable Long id , @RequestBody Inscription inscription){
         return iSkieurService.addRegistrationAndAssignToSkier(inscription,id);
     }

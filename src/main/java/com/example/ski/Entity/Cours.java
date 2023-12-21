@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -22,4 +24,7 @@ public class Cours {
     private Support support;
     private Float prix;
     private int creneau;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Inscription> inscriptions;
 }
