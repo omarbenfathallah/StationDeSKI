@@ -31,4 +31,9 @@ public class MoniteurController {
     public Moniteur getMoniteursById(@PathVariable Long id){
         return iMoniteurService.retrieveMoniteur(id);
     }
+
+    @PostMapping("/addMoniteurAvecCours/{numCours}")
+    public Moniteur createMoniteur(@RequestBody Moniteur moniteur,@PathVariable Long numCours){
+        return iMoniteurService.addInstructorAndAssignToCourse(moniteur,numCours);
+    }
 }
