@@ -24,5 +24,5 @@ public class Piste {
     private Couleur couleur;
 
     @ManyToMany(cascade =CascadeType.ALL,mappedBy = "pistes")
-    Set<Skiteur> skiteurs;
+    Set<Skieur> skiteurs;
 }

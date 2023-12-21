@@ -1,5 +1,6 @@
 package com.example.ski.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-public class Skiteur {
+public class Skieur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numSkiteur;
@@ -23,12 +24,15 @@ public class Skiteur {
     private LocalDate dateNaissance;
     private String ville;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     Set<Piste> pistes;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "skiteurs")
     Set<Inscription> inscriptions;
 
+    @JsonIgnore
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     Abonnement abonnement;
 
