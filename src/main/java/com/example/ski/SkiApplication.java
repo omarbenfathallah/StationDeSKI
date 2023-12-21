@@ -8,6 +8,7 @@ public class SkiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SkiApplication.class, args);
+		System.out.println("oumourk f jben");
 	}
 
 }

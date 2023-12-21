@@ -29,5 +29,8 @@ public class Skiteur {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "skiteurs")
     Set<Inscription> inscriptions;
 
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    Abonnement abonnement;
+
 
 }
