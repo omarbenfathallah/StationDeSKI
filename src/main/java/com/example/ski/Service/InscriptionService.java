@@ -23,8 +23,9 @@ public class InscriptionService implements IInscriptionService{
 
         inscription.setCours(cours);
 
-        // Save both entities
-        inscriptionRepository.save(inscription);
+        Inscription savedInscription = inscriptionRepository.save(inscription);
+
+        cours.getInscriptions().add(savedInscription);
         coursRepository.save(cours);
 
         return inscription;

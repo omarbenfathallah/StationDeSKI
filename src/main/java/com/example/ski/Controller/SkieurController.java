@@ -38,8 +38,13 @@ public class SkieurController {
     public Inscription ajouterInscriotion(@PathVariable Long id , @RequestBody Inscription inscription){
         return iSkieurService.addRegistrationAndAssignToSkier(inscription,id);
     }
-        @PostMapping("/Inscription/{numSkiteur}/{numPiste}")
+    @PostMapping("/Inscription/{numSkiteur}/{numPiste}")
     public Skieur assignSkierToPiste(@PathVariable Long numSkiteur , @PathVariable Long numPiste){
         return iSkieurService.assignSkierToPiste(numSkiteur,numPiste);
     }
+    @PostMapping("/SkiteurByNumCours/{numCours}")
+    public Skieur addSkierAndAssignToCourse(@RequestBody Skieur skieur , @PathVariable("numCours") Long numCours){
+        return iSkieurService.addSkierAndAssignToCourse(skieur,numCours);
+    }
+
 }

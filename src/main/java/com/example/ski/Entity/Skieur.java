@@ -28,7 +28,7 @@ public class Skieur {
     @ManyToMany(cascade = CascadeType.ALL)
     Set<Piste> pistes;
 
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "skiteurs")
     Set<Inscription> inscriptions;
 

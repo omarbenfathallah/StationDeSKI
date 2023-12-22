@@ -1,15 +1,11 @@
 package com.example.ski.Service;
 
-import com.example.ski.Entity.Abonnement;
-import com.example.ski.Entity.Inscription;
-import com.example.ski.Entity.Piste;
-import com.example.ski.Entity.Skieur;
-import com.example.ski.Repository.InscriptionRepository;
-import com.example.ski.Repository.PisteRepository;
-import com.example.ski.Repository.SkieurRepository;
+import com.example.ski.Entity.*;
+import com.example.ski.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +20,11 @@ public class SkieurServiceImp implements ISkieurService{
 
     @Autowired
     PisteRepository pisteRepository;
+
+    @Autowired
+    CoursRepository coursRepository;
+    @Autowired
+    AbonnementRepository abonnementRepository;
     @Override
     public List<Skieur> retrieveAllSkieurs() {
         return skieurRepository.findAll();
@@ -85,4 +86,42 @@ public class SkieurServiceImp implements ISkieurService{
 
         return skieurRepository.save(skieur);
     }
+
+    @Override
+    public Skieur addSkierAndAssignToCourse(Skieur skieur, Long numCourse) {
+        //Skieur savedSkieur = skieurRepository.save(skieur);
+        Cours cours = coursRepository.findById(numCourse).orElse(null);
+        // Create and set abonnement for the skieur
+        Abonnement abonnement = new Abonnement();
+        abonnement.setDateFin(skieur.getAbonnement().getDateFin());
+        abonnement.setDateDebu(skieur.getAbonnement().getDateDebu());
+
+        // Set abonnement for the skieur
+        skieur.setAbonnement(abonnement);
+
+        // Create and set inscription for the skieur
+        Inscription inscription = new Inscription();
+        // Set inscription properties as needed
+        // ...
+
+        // Set skieur and course for the inscription
+        inscription.setSkiteurs(skieur);
+        inscription.setCours(cours);
+
+        // Save abonnement, skieur, and inscription entities
+        abonnementRepository.save(abonnement);
+        Skieur savedSkieur = skieurRepository.save(skieur);
+        Inscription savedInscription = inscriptionRepository.save(inscription);
+
+        // Assign the skieur and inscription to the course
+        cours.getInscriptions().add(savedInscription);
+        coursRepository.save(cours);
+
+        // Update the skieur with the saved inscription
+        savedSkieur.getInscriptions().add(savedInscription);
+        skieurRepository.save(savedSkieur);
+
+        return savedSkieur;
+    }
+
 }
