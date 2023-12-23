@@ -1,5 +1,6 @@
 package com.example.ski.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,9 +19,11 @@ public class Inscription {
     private int numSemaine;
 
     @ManyToOne
+    @JsonIgnore
     private Skieur skiteurs;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "cours_num_cours")
     private Cours cours;
 

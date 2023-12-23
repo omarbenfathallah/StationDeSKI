@@ -124,4 +124,9 @@ public class SkieurServiceImp implements ISkieurService{
         return savedSkieur;
     }
 
+    @Override
+    public List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement) {
+        return skieurRepository.getSkieurByAbonnement_TypeAbon(typeAbonnement);
+    }
+
 }

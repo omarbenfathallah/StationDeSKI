@@ -3,6 +3,7 @@ package com.example.ski.Controller;
 import com.example.ski.Entity.Inscription;
 import com.example.ski.Entity.Piste;
 import com.example.ski.Entity.Skieur;
+import com.example.ski.Entity.TypeAbonnement;
 import com.example.ski.Service.ICoursService;
 import com.example.ski.Service.ISkieurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class SkieurController {
     @PostMapping("/SkiteurByNumCours/{numCours}")
     public Skieur addSkierAndAssignToCourse(@RequestBody Skieur skieur , @PathVariable("numCours") Long numCours){
         return iSkieurService.addSkierAndAssignToCourse(skieur,numCours);
+    }
+
+    @GetMapping("/SkieurByTypeAbonnement/{typeAbon}")
+    public  List<Skieur> getSkieurByTypeAbonnement(@PathVariable("typeAbon")TypeAbonnement typeAbon){
+        return iSkieurService.retrieveSkiersBySubscriptionType(typeAbon);
     }
 
 }
