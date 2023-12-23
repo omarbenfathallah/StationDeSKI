@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface IInscriptionService {
     Inscription assignRegistrationToCourse(Long numRegistration, Long numCourse);
-   // Set<Abonnement> getSubscriptionByType(TypeAbonnement typeAbon);
+    Set<Abonnement> getSubscriptionByType(TypeAbonnement typeAbon);
 }

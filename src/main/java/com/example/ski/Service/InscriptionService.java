@@ -1,11 +1,16 @@
 package com.example.ski.Service;
 
+import com.example.ski.Entity.Abonnement;
 import com.example.ski.Entity.Cours;
 import com.example.ski.Entity.Inscription;
+import com.example.ski.Entity.TypeAbonnement;
+import com.example.ski.Repository.AbonnementRepository;
 import com.example.ski.Repository.CoursRepository;
 import com.example.ski.Repository.InscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
 public class InscriptionService implements IInscriptionService{
@@ -15,6 +20,8 @@ public class InscriptionService implements IInscriptionService{
 
     @Autowired
     CoursRepository coursRepository;
+    @Autowired
+    AbonnementRepository abonnementRepository;
 
     @Override
     public Inscription assignRegistrationToCourse(Long numRegistration, Long numCourse) {
@@ -29,5 +36,10 @@ public class InscriptionService implements IInscriptionService{
         coursRepository.save(cours);
 
         return inscription;
+    }
+
+    @Override
+    public Set<Abonnement> getSubscriptionByType(TypeAbonnement typeAbon) {
+        return abonnementRepository.getAbonnementsByTypeAbonOrderByDateDebu(typeAbon);
     }
 }

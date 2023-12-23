@@ -18,4 +18,6 @@ public class InscriptionController {
     public Inscription  assignRegistrationToCourse(@PathVariable Long numIns ,@PathVariable Long numCours){
         return  iInscriptionService.assignRegistrationToCourse(numIns,numCours);
     }
+
+
 }
