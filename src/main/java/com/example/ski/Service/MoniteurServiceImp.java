@@ -2,6 +2,7 @@ package com.example.ski.Service;
 
 import com.example.ski.Entity.Cours;
 import com.example.ski.Entity.Moniteur;
+import com.example.ski.Entity.Support;
 import com.example.ski.Repository.CoursRepository;
 import com.example.ski.Repository.MoniteurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,10 @@ public class MoniteurServiceImp implements IMoniteurService{
 
         return moniteurRepository.save(moniteur);
 
+    }
+
+    @Override
+    public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support) {
+        return moniteurRepository.numWeeksCourseOfInstructorBySupport(numInstructor,support);
     }
 }

@@ -1,12 +1,10 @@
 package com.example.ski.Service;
 
-import com.example.ski.Entity.Abonnement;
-import com.example.ski.Entity.Cours;
-import com.example.ski.Entity.Inscription;
-import com.example.ski.Entity.TypeAbonnement;
+import com.example.ski.Entity.*;
 import com.example.ski.Repository.AbonnementRepository;
 import com.example.ski.Repository.CoursRepository;
 import com.example.ski.Repository.InscriptionRepository;
+import com.example.ski.Repository.SkieurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +17,13 @@ public class InscriptionService implements IInscriptionService{
 
     @Autowired
     InscriptionRepository inscriptionRepository;
-
     @Autowired
     CoursRepository coursRepository;
     @Autowired
     AbonnementRepository abonnementRepository;
+    @Autowired
+    SkieurRepository skieurRepository;
+
 
     @Override
     public Inscription assignRegistrationToCourse(Long numRegistration, Long numCourse) {
@@ -48,5 +48,20 @@ public class InscriptionService implements IInscriptionService{
     @Override
     public List<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate) {
         return abonnementRepository.getAbonnementsByDateDebuBetween(startDate,endDate);
+    }
+
+    @Override
+    public Inscription addRegistrationAndAssignToSkierAndCourse(Inscription inscription, Long numSkieur, Long numCours) {
+        Skieur skieur = skieurRepository.findById(numSkieur).orElse(null);
+        Cours cours = coursRepository.findById(numCours).orElse(null);
+        // Check if the course type is COLLECTIF_ENFANT or COLLECTIF_ADULTE
+        if(cours.getTypeCours()== TypeCours.COLLECTIF_ADULT  || cours.getTypeCours()== TypeCours.COLLECTIF_ENFANT){
+            //check if the number of the registrations  for the cours is less than 6
+            if (cours.getInscriptions().size()>=6){
+
+            }
+
+        }
+        return null;
     }
 }

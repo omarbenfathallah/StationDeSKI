@@ -2,6 +2,7 @@ package com.example.ski.Controller;
 
 import com.example.ski.Entity.Cours;
 import com.example.ski.Entity.Moniteur;
+import com.example.ski.Entity.Support;
 import com.example.ski.Service.ICoursService;
 import com.example.ski.Service.IMoniteurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,13 @@ public class MoniteurController {
     @PostMapping("/addMoniteurAvecCours/{numCours}")
     public Moniteur createMoniteur(@RequestBody Moniteur moniteur,@PathVariable Long numCours){
         return iMoniteurService.addInstructorAndAssignToCourse(moniteur,numCours);
+    }
+
+    @GetMapping("/moniteur/{numMoniteur}/weeks")
+    public List<Integer> getWeeksBySupport(
+            @PathVariable Long numMoniteur,
+            @RequestParam Support support
+    ) {
+        return iMoniteurService.numWeeksCourseOfInstructorBySupport(numMoniteur, support);
     }
 }

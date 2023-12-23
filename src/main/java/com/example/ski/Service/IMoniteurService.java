@@ -1,6 +1,7 @@
 package com.example.ski.Service;
 
 import com.example.ski.Entity.Moniteur;
+import com.example.ski.Entity.Support;
 
 import java.util.List;
 
@@ -11,6 +12,9 @@ public interface IMoniteurService {
     Moniteur retrieveMoniteur (Long numMoniteur);
 
     Moniteur addInstructorAndAssignToCourse(Moniteur moniteur, Long numCourse);
+
+    List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support);
+
 
 
 }

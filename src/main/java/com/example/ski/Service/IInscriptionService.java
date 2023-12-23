@@ -14,4 +14,6 @@ public interface IInscriptionService {
 
     List<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate,LocalDate endDate);
 
+    Inscription addRegistrationAndAssignToSkierAndCourse(Inscription inscription,Long numSkieur, Long numCours);
+
 }
