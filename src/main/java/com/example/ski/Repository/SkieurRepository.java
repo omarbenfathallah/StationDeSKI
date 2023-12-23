@@ -1,5 +1,6 @@
 package com.example.ski.Repository;
 
+import com.example.ski.Entity.Abonnement;
 import com.example.ski.Entity.Skieur;
 import com.example.ski.Entity.TypeAbonnement;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ public interface SkieurRepository extends JpaRepository<Skieur,Long> {
     Skieur getSkieurByNumSkiteur(Long num);
 
     List<Skieur> getSkieurByAbonnement_TypeAbon(TypeAbonnement typeAbonnement);
+
+    Skieur findByAbonnement(Abonnement abonnement);
 
 }

@@ -16,4 +16,6 @@ public interface IInscriptionService {
 
     Inscription addRegistrationAndAssignToSkierAndCourse(Inscription inscription,Long numSkieur, Long numCours);
 
+     void retrieveSubscriptions();
+
 }

@@ -1,8 +1,10 @@
 package com.example.ski.Repository;
 
 import com.example.ski.Entity.Abonnement;
+import com.example.ski.Entity.Inscription;
 import com.example.ski.Entity.TypeAbonnement;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,4 +15,9 @@ public interface AbonnementRepository extends JpaRepository<Abonnement,Long> {
     Set<Abonnement> getAbonnementsByTypeAbonOrderByDateDebu(TypeAbonnement typeAbonnement);
 
     List<Abonnement> getAbonnementsByDateDebuBetween(LocalDate datedebu, LocalDate datefin );
+
+
+    @Query("select distinct s from Abonnement s where s.dateDebu <= CURRENT_TIME order by s.dateFin")
+    List<Abonnement> findDistinctOrderByEndDateAsc();
+
 }
