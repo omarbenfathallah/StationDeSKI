@@ -10,6 +10,8 @@ import com.example.ski.Repository.InscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -41,5 +43,10 @@ public class InscriptionService implements IInscriptionService{
     @Override
     public Set<Abonnement> getSubscriptionByType(TypeAbonnement typeAbon) {
         return abonnementRepository.getAbonnementsByTypeAbonOrderByDateDebu(typeAbon);
+    }
+
+    @Override
+    public List<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate) {
+        return abonnementRepository.getAbonnementsByDateDebuBetween(startDate,endDate);
     }
 }
